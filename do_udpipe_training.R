@@ -23,3 +23,35 @@ gof <- udpipe_accuracy(m, testfile, tokenizer="default", tagger="default", parse
 df <- udpipe_annotate(object=m, x="This is my sentence.", parser='none')
 as.data.frame(df)
 
+# annotate and evaluate with test file
+testo <- read.delim(testfile, as.is=T, header=F)
+
+# annotate with vertical (row by row) tokenization
+testann <- udpipe_annotate(m, x=testo$V2, tokenizer='vertical', parser='none')
+testann.df <- as.data.frame(testann)
+
+# lemmatiser accuracy
+sum(testann.df$lemma==testo$V3)
+95943/189638
+# 0.5059271
+
+# remove punctuation (because tagged as NA)
+isnotpunct <- testann.df$upos!='PUNCT'
+testann.df.nopunct <- testann.df[isnotpunct,]
+testo.nopunct <- testo[isnopunct,]
+# and a random NA token
+testann.df.nopunct <- testann.df.nopunct[-142977,]
+testo.nopunct <- testo.nopunct[-142977,]
+
+# check tokens match
+sum(testann.df.nopunct$token==testo.nopunct$V2)
+
+# tagging accuracy (XPOS)
+sum(testann.df.nopunct$xpos==testo.nopunct$V5)
+76123/183087
+# 0.415775
+
+# and UPOS
+sum(testann.df.nopunct$upos==testo.nopunct$V4)
+99874/183087
+# 0.5455002

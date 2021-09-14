@@ -5,7 +5,7 @@
 
 # and can't have 'lemmas' with more than 255 forms
 # discovered with subsetting and length of unique tokens per lemma
-largelemms <- c("name", "_", "-", "toponym", "demonym", "foreign_word")
+largelemms <- c("name", "_", "-", "-;", "toponym", "demonym", "foreign_word")
 
 traindevtest <- data.frame()
 trainfile <- '~/Corpora/YCOE/train.conll'
@@ -86,8 +86,8 @@ sum(subset(traindevtest, train_dev_test=='train')$ntokens)
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens)
 # 123104
 sum(subset(traindevtest, train_dev_test=='test')$ntokens)
-# 161886
+# 161885
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens) / sum(traindevtest$ntokens)
 # 0.09772501
 sum(subset(traindevtest, train_dev_test=='test')$ntokens) / sum(traindevtest$ntokens)
-# 0.1285118
+# 0.128511

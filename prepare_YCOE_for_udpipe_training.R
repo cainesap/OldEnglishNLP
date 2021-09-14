@@ -5,7 +5,7 @@
 
 # and can't have 'lemmas' with more than 255 forms
 # discovered with subsetting and length of unique tokens per lemma
-largelemms <- c("name", "_", "toponym", "demonym", "foreign_word")
+largelemms <- c("name", "_", "-", "toponym", "demonym", "foreign_word")
 
 traindevtest <- data.frame()
 trainfile <- '~/Corpora/YCOE/train.conll'
@@ -25,7 +25,8 @@ for (f in 1:nfiles) {
   print(paste("Processing file", f, "of", nfiles, ":", filein))
   fileout <- gsub('.conllu', '_prepped.conllu', filein)
   filemid <- gsub('.conllu', '_midpoint.conllu', filein)
-  system(paste('egrep -v "^\\d+\\s+[a-z]+,.+:|^#"', filein, '| egrep "^\\d|^\\s*$" | egrep -v "(\\d+-){2,}" >', filemid))
+  system(paste('egrep -v "^\\d+\\s+[A-Za-z0-9]+\\s*,.+:|^#"', filein, '| egrep "^\\d|^\\s*$" | egrep -v "(\\d+-){2,}" | egrep -v "^\\d+\\s+_" >',
+    filemid))
   fin <- read.delim(filemid, header=F, as.is=T)
   arenas <- which(is.na(as.numeric(fin$V1)))
   fin$V1[arenas] <- 0
@@ -61,7 +62,7 @@ for (f in 1:nfiles) {
   }
   ntokens <- as.integer(system(paste('egrep -c "^\\d"', fileout), intern=T))
   train_dev_test <- sample(c('train', 'dev', 'test'), prob=c(.8, .1, .1), size=1)
-  filename <- gsub('/Users/apc38/workspace/nlp-tools/marmot/data/', 'data/', fileout)
+  filename <- gsub('^.+/', '', fileout)
   lineout <- data.frame(filename, train_dev_test, ntokens)
   traindevtest <- rbind(traindevtest, lineout)
   if (train_dev_test=='train') {

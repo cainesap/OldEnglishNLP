@@ -25,7 +25,7 @@ for (f in 1:nfiles) {
   print(paste("Processing file", f, "of", nfiles, ":", filein))
   fileout <- gsub('.conllu', '_prepped.conllu', filein)
   filemid <- gsub('.conllu', '_midpoint.conllu', filein)
-  system(paste('egrep -v "^\\d+\\s+[A-Za-z0-9]+\\s*,.+:|^#"', filein, '| egrep "^\\d|^\\s*$" | egrep -v "(\\d+-){2,}" | egrep -v "^\\d+\\s+_" >',
+  system(paste('egrep -v "^\\d+\\s+[A-Za-z0-9]+.*,.+:|^#"', filein, '| egrep "^\\d|^\\s*$" | egrep -v "(\\d+-){2,}" | egrep -v "^\\d+\\s+_" >',
     filemid))
   fin <- read.delim(filemid, header=F, as.is=T)
   arenas <- which(is.na(as.numeric(fin$V1)))
@@ -80,14 +80,14 @@ write.table(traindevtest, '~/Corpora/YCOE/train_dev_test_split_info.csv', row.na
 
 # info about dataset sizes
 sum(traindevtest$ntokens)
-# 1261263
+# 1259698
 sum(subset(traindevtest, train_dev_test=='train')$ntokens)
-# 965778
+# 974708
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens)
-# 105847
+# 123104
 sum(subset(traindevtest, train_dev_test=='test')$ntokens)
-# 189638
+# 161886
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens) / sum(traindevtest$ntokens)
-# 0.08392143
+# 0.09772501
 sum(subset(traindevtest, train_dev_test=='test')$ntokens) / sum(traindevtest$ntokens)
-# 0.1503556
+# 0.1285118

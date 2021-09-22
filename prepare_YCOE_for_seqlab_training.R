@@ -19,7 +19,7 @@ testtsv <- '~/Corpora/YCOE/test.tsv'
 
 ## if starting over
 system(paste('rm', trainfile)); system(paste('rm', devfile)); system(paste('rm', testfile));
-system('rm ~/Corpora/YCOE/*_*.conllu')
+system('rm ~/Corpora/YCOE/*_*.conllu'); system('rm ~/Corpora/YCOE/*.tsv')
 
 dirpath <- '~/Corpora/YCOE/'
 files <- list.files(path=dirpath, pattern='.conllu$', full.names=T)

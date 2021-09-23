@@ -96,12 +96,12 @@ write.table(traindevtest, '~/Corpora/YCOE/train_dev_test_split_info.csv', row.na
 sum(traindevtest$ntokens)
 # 1483055
 sum(subset(traindevtest, train_dev_test=='train')$ntokens)
-# 944422
+# 1146617
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens)
-# 229008
+# 136268
 sum(subset(traindevtest, train_dev_test=='test')$ntokens)
-# 86267
+# 200170
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens) / sum(traindevtest$ntokens)
-# 
+# 0.09188331
 sum(subset(traindevtest, train_dev_test=='test')$ntokens) / sum(traindevtest$ntokens)
-# 0.1976198
+# 0.1349714

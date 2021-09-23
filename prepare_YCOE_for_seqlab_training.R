@@ -94,7 +94,7 @@ write.table(traindevtest, '~/Corpora/YCOE/train_dev_test_split_info.csv', row.na
 
 # info about dataset sizes
 sum(traindevtest$ntokens)
-# 1259697
+# 1483055
 sum(subset(traindevtest, train_dev_test=='train')$ntokens)
 # 944422
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens)
@@ -102,6 +102,6 @@ sum(subset(traindevtest, train_dev_test=='dev')$ntokens)
 sum(subset(traindevtest, train_dev_test=='test')$ntokens)
 # 86267
 sum(subset(traindevtest, train_dev_test=='dev')$ntokens) / sum(traindevtest$ntokens)
-# 0.1817961
+# 
 sum(subset(traindevtest, train_dev_test=='test')$ntokens) / sum(traindevtest$ntokens)
-# 0.06848234
+# 0.1976198
